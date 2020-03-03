@@ -137,10 +137,10 @@ mask = (np.full([height,width], 0, dtype='uint8'))
 # #polygon test
 # x = 50
 # y = 30
-ellipse test
-x = 150
+#ellipse test
+x = 100
 y = 100
-radius = 5
+radius = 0
 
 #make obstacles visible
 for i in range(200):
@@ -149,5 +149,15 @@ for i in range(200):
             #if the coordinates are within an obstacle make that pixel lighter
             mask[i][j] = 100
 
-#show the image
-cv2.imshow("test",mask)
+
+while(1):
+    
+    cv2.imshow("HSV",mask)
+    #if 'q' is pressed then quit video
+    key = cv2.waitKey(1) & 0xFF
+    if key == 27 or key == ord("q"):
+        break
+
+# cleanup the camera and close any open windows
+cv2.destroyAllWindows()
+
