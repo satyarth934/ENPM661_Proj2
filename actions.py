@@ -120,9 +120,9 @@ def actionMoveBottomRight(data, goal_position):
 
 
 def actionMove(data, goal_position, row_step, col_step):
-	if ((data.current_coords[0] + row_step) < 0) and 
-		((data.current_coords[0] + row_step) >= input_map_dummy.shape[0]) and 
-		((data.current_coords[1] + col_step) < 0) and 
+	if ((data.current_coords[0] + row_step) < 0) and \
+		((data.current_coords[0] + row_step) >= input_map_dummy.shape[0]) and \
+		((data.current_coords[1] + col_step) < 0) and \
 		((data.current_coords[1] + col_step) >= input_map_dummy.shape[1]):
 		return None
 

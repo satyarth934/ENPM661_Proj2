@@ -55,7 +55,7 @@ class Node(object):
 	## Prints all the information regarding the current configuration.
 	##
 	def printNode(self):
-		print("current_coords:\t", current_coords)
-		print("parent_coords:\t", parent_coords)
-		print("movement_cost:\t", movement_cost)
-		print("goal_cost:\t", goal_cost)
+		print "current_coords:\t", self.current_coords
+		print "parent_coords:\t", self.parent_coords
+		print "movement_cost:\t", self.movement_cost
+		print "goal_cost:\t", self.goal_cost
