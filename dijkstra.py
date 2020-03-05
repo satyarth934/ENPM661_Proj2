@@ -6,6 +6,7 @@ import heapq
 import sys
 sys.dont_write_bytecode = True
 
+import actions
 import obstacles
 import node
 import utils
@@ -40,6 +41,7 @@ def function(input_map):
 		if curr_node.shallowMatch(goal_node):
 			print("Reached Goal!")
 			# backtrack to get the path
+			utils.backtrack(curr_node, visited_nodes)
 			break
 		
 		# if hit an obstacle, ignore this movement
@@ -48,7 +50,7 @@ def function(input_map):
 
 		for row_step, col_step in movement_steps:
 			# Action Move
-			next_node = actions.actionMove(curr_node, (goal_r, goal_c), movement_steps[0], movement_steps[1])
+			next_node = actions.actionMove(curr_node, (goal_r, goal_c), row_step, col_step)
 			
 			if next_node is not None:
 				# Check if the current node has already been visited.

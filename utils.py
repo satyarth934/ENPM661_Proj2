@@ -25,6 +25,16 @@ def findInHeap(node, node_list):
 	return -1
 
 
+def backtrack(node, visited_nodes):
+	## printing both the arguments
+	print("Node details:")
+	node.printNode()
+	print("Visited nodes -----")
+	for key in visited_nodes:
+		visited_nodes[key].printNode()
+		print("---")
+
+
 def main():
 	print(euclideanDistance((10,10), (12,12)))
 
