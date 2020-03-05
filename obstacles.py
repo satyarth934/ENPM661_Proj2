@@ -1,5 +1,6 @@
-import numpy as np
 import cv2
+import numpy as np
+import matplotlib.pyplot as plt
 
 #check if the coordinate is in the cirlce obstacle
 def circle(x,y,radius):
@@ -121,43 +122,52 @@ def polygon(x,y,radius):
         return False
 
 
+def getMap(radius=0, visualize=False):
+    #Initalize maze
+    height = 200
+    width = 300
+    #make the background all black
+    mask = (np.full([height,width], 0, dtype='uint8'))
 
-#Initalize maze
-height = 200
-width = 300
-#make the background all black
-mask = (np.full([height,width], 0, dtype='uint8'))
+    # #rectangle test
+    # x = 95
+    # y = 168
+    # #diamond test
+    # x = 225
+    # y = 175
+    # #polygon test
+    # x = 50
+    # y = 30
+    #ellipse test
+    x = 100
+    y = 100
 
-# #rectangle test
-# x = 95
-# y = 168
-# #diamond test
-# x = 225
-# y = 175
-# #polygon test
-# x = 50
-# y = 30
-#ellipse test
-x = 100
-y = 100
-radius = 0
+    #make obstacles visible
+    for i in range(200):
+        for j in range(300):
+            if circle(j,i,radius) or ellipse(j,i,radius) or rectangle(j,i,radius) or diamond(j,i,radius) or polygon(j,i,radius):
+                #if the coordinates are within an obstacle make that pixel lighter
+                mask[i][j] = 100
 
-#make obstacles visible
-for i in range(200):
-    for j in range(300):
-        if circle(j,i,radius) or ellipse(j,i,radius) or rectangle(j,i,radius) or diamond(j,i,radius) or polygon(j,i,radius):
-            #if the coordinates are within an obstacle make that pixel lighter
-            mask[i][j] = 100
+    if visualize:
+        while(1):
+            
+            cv2.imshow("HSV",mask)
+            #if 'q' is pressed then quit video
+            key = cv2.waitKey(1) & 0xFF
+            if key == 27 or key == ord("q"):
+                break
+
+        # cleanup the camera and close any open windows
+        cv2.destroyAllWindows()
+
+    return mask
 
 
-while(1):
-    
-    cv2.imshow("HSV",mask)
-    #if 'q' is pressed then quit video
-    key = cv2.waitKey(1) & 0xFF
-    if key == 27 or key == ord("q"):
-        break
+def main():
+    mask = getMap()
+    print(mask.shape)
 
-# cleanup the camera and close any open windows
-cv2.destroyAllWindows()
 
+if __name__ == '__main__':
+    main()
