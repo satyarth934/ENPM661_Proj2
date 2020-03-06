@@ -52,24 +52,22 @@ def getDijkstraPath(input_map):
 		if curr_node.shallowMatch(goal_node):
 			print("Reached Goal!")
 			# backtrack to get the path
-			path = utils.backtrack(curr_node, visited_nodes)
-			for i in path:
-				input_map[i.current_coords] = 255
+			utils.backtrack(curr_node, visited_nodes)
 			break
-
-		# if hit an obstacle, ignore this movement
-		if input_map[curr_node.current_coords] != 0:
-			continue
+		
+		# # if hit an obstacle, ignore this movement
+		# if input_map[curr_node.current_coords] != 0:
+		# 	continue
 
 		for row_step, col_step in movement_steps:
 			# Action Move
 			next_node = actions.actionMove(curr_node, row_step, col_step)
-
-			# ERROR <- GETTING NEGATIVE COORDINATES
-			# if next_node.current_coords[0] < 0 or next_node.current_coords[1] < 0:
-			# 	print next_node.current_coords
-
+			
 			if next_node is not None:
+				# if hit an obstacle, ignore this movement
+				if input_map[next_node.current_coords] != 0:
+					continue
+
 				# Check if the current node has already been visited.
 				# If it has, then see if the current path is better than the previous one
 				# based on the total cost = movement cost + goal cost
