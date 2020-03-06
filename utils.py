@@ -35,6 +35,16 @@ def backtrack(node, visited_nodes):
 		print("---")
 
 
+def drawOnMap(input_map, coords, visualize=False):
+	# if coords[0] < 0 or coords[1] < 0:
+	# 	print "input_map[", coords , "]:", input_map[coords]
+	input_map[coords] = 255
+
+	if visualize:
+		cv2.imshow("exploration", input_map)
+		cv2.waitKey(10)
+
+
 def main():
 	print(euclideanDistance((10,10), (12,12)))
 
