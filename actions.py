@@ -119,24 +119,24 @@ def actionMoveBottomRight(data, goal_position):
 	return ret_val
 
 
-def actionMove(data, goal_position, row_step, col_step):
-	if ((data.current_coords[0] + row_step) < 0) and \
-		((data.current_coords[0] + row_step) >= input_map_dummy.shape[0]) and \
-		((data.current_coords[1] + col_step) < 0) and \
-		((data.current_coords[1] + col_step) >= input_map_dummy.shape[1]):
+def actionMove(data, row_step, col_step, goal_position=None):
+	if ((data.current_coords[0] + row_step) < 0) and ((data.current_coords[0] + row_step) >= input_map_dummy.shape[0]) and ((data.current_coords[1] + col_step) < 0) and ((data.current_coords[1] + col_step) >= input_map_dummy.shape[1]):
 		return None
 
 	current_coords = (data.current_coords[0] + row_step, data.current_coords[1] + col_step)
 	parent_coords = data.current_coords
 	if (np.abs(row_step) + np.abs(col_step)) == 1:
-		movement_cost = data.movement_cost + np.sqrt(2)
-	elif (np.abs(row_step) + np.abs(col_step)) == 2:
 		movement_cost = data.movement_cost + 1
+	elif (np.abs(row_step) + np.abs(col_step)) == 2:
+		movement_cost = data.movement_cost + np.sqrt(2)
 	else:
 		print("WRONG movement values!!")
 		return None
 
-	goal_cost = utils.euclideanDistance(current_coords, goal_position)
+	if goal_position is None:
+		goal_cost = None
+	else:
+		goal_cost = utils.euclideanDistance(current_coords, goal_position)
 
 	ret_val = node.Node(current_coords, parent_coords, movement_cost, goal_cost)
 
