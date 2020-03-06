@@ -57,9 +57,6 @@ def getDijkstraPath(input_map):
 				input_map[i.current_coords] = 255
 			break
 
-		# if hit an obstacle, ignore this movement
-		if input_map[curr_node.current_coords] != 0:
-			continue
 
 		for row_step, col_step in movement_steps:
 			# Action Move
@@ -70,6 +67,10 @@ def getDijkstraPath(input_map):
 			# 	print next_node.current_coords
 
 			if next_node is not None:
+
+				# if hit an obstacle, ignore this movement
+				if input_map[next_node.current_coords] != 0:
+					continue
 				# Check if the current node has already been visited.
 				# If it has, then see if the current path is better than the previous one
 				# based on the total cost = movement cost + goal cost
@@ -96,7 +97,11 @@ def main():
 	input_map = obstacles.getMap()
 	getDijkstraPath(input_map)
 	cv2.imshow("Map", input_map)
-	cv2.waitKey(0)
+	 #if 'q' is pressed then quit video
+	while(1):
+		key = cv2.waitKey(1) & 0xFF
+		if key == 27 or key == ord("q"):
+		    break
 
 if __name__ == '__main__':
 	main()
