@@ -3,6 +3,18 @@ import cv2
 import numpy as np
 
 
+##
+## To find the euclidean distance between two coordinates.
+## Used in the A_star algorithm
+##
+## :param      state1:  coordinate 1
+## :type       state1:  (row, col)
+## :param      state2:  coordinate 2
+## :type       state2:  (row, col)
+##
+## :returns:   euclidean distance between the two coordinates
+## :rtype:     float
+##
 def euclideanDistance(state1, state2):
 	return np.sqrt(((state1[0] - state2[0]) ** 2) + ((state1[1] - state2[1]) ** 2))
 
@@ -25,8 +37,18 @@ def findInHeap(node, node_list):
 	return -1
 
 
+##
+## Finds the optimum path from the list of visited nodes
+##
+## :param      node:           The current node that is the same as the goal node
+## :type       node:           Node
+## :param      visited_nodes:  The visited nodes dictionary with current coordinates as the key
+## :type       visited_nodes:  dictionary
+##
+## :returns:   List of coordinates that give the path from the start node to end node
+## :rtype:     list
+##
 def backtrack(node, visited_nodes):
-	## printing both the arguments
 	path = []
 	temp = visited_nodes[node.parent_coords]
 	while temp.parent_coords is not None:
@@ -36,9 +58,17 @@ def backtrack(node, visited_nodes):
 	return path
 
 
+##
+## Function to draw on the map for visualization purposes
+##
+## :param      input_map:  The input map
+## :type       input_map:  numpy matrix
+## :param      coords:     The coordinate to mark on the map
+## :type       coords:     (row, col)
+## :param      visualize:  Visualize only if this argument is True
+## :type       visualize:  boolean
+##
 def drawOnMap(input_map, coords, visualize=False):
-	# if coords[0] < 0 or coords[1] < 0:
-	# 	print "input_map[", coords , "]:", input_map[coords]
 	input_map[coords] = 255
 
 	if visualize:
@@ -46,9 +76,10 @@ def drawOnMap(input_map, coords, visualize=False):
 		cv2.waitKey(10)
 
 
-def main():
-	print(euclideanDistance((10,10), (12,12)))
+
+# def main():
+# 	print(euclideanDistance((10,10), (12,12)))
 
 
-if __name__ == '__main__':
-	main()
+# if __name__ == '__main__':
+# 	main()

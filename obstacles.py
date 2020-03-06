@@ -2,7 +2,20 @@ import cv2
 import numpy as np
 import matplotlib.pyplot as plt
 
-#check if the coordinate is in the cirlce obstacle
+
+##
+## To check if the coordinate is in the cirlce obstacle
+##
+## :param      x:       x coordinate
+## :type       x:       int
+## :param      y:       y coordinate
+## :type       y:       int
+## :param      radius:  The radius of the robot
+## :type       radius:  int
+##
+## :returns:   True if the coordinate lies within the circle, False otherwise
+## :rtype:     boolean
+##
 def circle(x,y,radius):
     #checks if the coordinate is within the geometrical equation
     if ((x-225)**2+(y-50)**2) < (25+radius)**2:
@@ -10,7 +23,20 @@ def circle(x,y,radius):
     else:
         return False
 
-#check if the coordinate is in the ellipse obstacle
+
+##
+## To check if the coordinate is in the ellipse obstacle
+##
+## :param      x:       x coordinate
+## :type       x:       int
+## :param      y:       y coordinate
+## :type       y:       int
+## :param      radius:  The radius of the robot
+## :type       radius:  int
+##
+## :returns:   True if the coordinate lies within the ellipse, False otherwise
+## :rtype:     boolean
+##
 def ellipse(x,y,radius):
     #checks if the coordinate is within the geometrical equation
     if ((x-150)**2.0)/(40+radius)**2 + ((y-100)**2.0)/(20+radius)**2 <= 1:
@@ -18,7 +44,20 @@ def ellipse(x,y,radius):
     else:
         return False
 
-#check if the coordinate is in the diamond obstacle
+
+##
+## To check if the coordinate is in the diamond obstacle
+##
+## :param      x:       x coordinate
+## :type       x:       int
+## :param      y:       y coordinate
+## :type       y:       int
+## :param      radius:  The radius of the robot
+## :type       radius:  int
+##
+## :returns:   True if the coordinate lies within the diamond, False otherwise
+## :rtype:     boolean
+##
 def diamond(x,y,radius):
     #create the points of the diamond
     p1 = [225.0, 160-radius]
@@ -26,8 +65,8 @@ def diamond(x,y,radius):
     p3 = [225.0, 190+radius]
     p4 = [200.0-radius, 175]
 
-    #make lines connecting the connecting the points
-    #m is the slobe and b is the y-intercept
+    # make lines connecting the connecting the points
+    # m is the slope and b is the y-intercept
     m1 = (p2[1]-p1[1])/(p2[0]-p1[0])
     b1 = p1[1]-m1*p1[0]
 
@@ -46,7 +85,20 @@ def diamond(x,y,radius):
     else:
         return False
 
-#check if the coordinate is in the rectangle obstacle
+
+##
+## To check if the coordinate is in the rectangle obstacle
+##
+## :param      x:       x coordinate
+## :type       x:       int
+## :param      y:       y coordinate
+## :type       y:       int
+## :param      radius:  The radius of the robot
+## :type       radius:  int
+##
+## :returns:   True if the coordinate lies within the rectangle, False otherwise
+## :rtype:     boolean
+##
 def rectangle(x,y,radius):
     #points of the rectangle
     p1 = [39.0, 127-radius]
@@ -74,7 +126,20 @@ def rectangle(x,y,radius):
     else:
         return False
 
-#check if the coordinate is in the polygon obstacle
+
+##
+## To check if the coordinate is in the polygon obstacle
+##
+## :param      x:       x coordinate
+## :type       x:       int
+## :param      y:       y coordinate
+## :type       y:       int
+## :param      radius:  The radius of the robot
+## :type       radius:  int
+##
+## :returns:   True if the coordinate lies within the polygon, False otherwise
+## :rtype:     boolean
+##
 def polygon(x,y,radius):
     #points of the polygon
     p1 = [25.0, 15-(radius)]
@@ -122,6 +187,17 @@ def polygon(x,y,radius):
         return False
 
 
+##
+## Gets the map with the defined obstacles in it.
+##
+## :param      radius:     The radius
+## :type       radius:     int
+## :param      visualize:  Visualize only if this argument is true
+## :type       visualize:  boolean
+##
+## :returns:   The map.
+## :rtype:     numpy matrix
+##
 def getMap(radius=0, visualize=False):
     #Initalize maze
     height = 200
@@ -164,10 +240,10 @@ def getMap(radius=0, visualize=False):
     return mask
 
 
-def main():
-    mask = getMap(20,True)
-    print(mask.shape)
+# def main():
+#     mask = getMap(20,True)
+#     print(mask.shape)
 
 
-if __name__ == '__main__':
-    main()
+# if __name__ == '__main__':
+#     main()

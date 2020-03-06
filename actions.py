@@ -7,118 +7,24 @@ import utils
 input_map_dummy = np.zeros((200, 300))
 
 
-def actionMoveLeft(data, goal_position):
-	if data.current_coords[1]-1 < 0:
-		return None
-
-	current_coords = (data.current_coords[0], data.current_coords[1]-1)
-	parent_coords = data.current_coords
-	movement_cost = data.movement_cost + 1
-	goal_cost = utils.euclideanDistance(current_coords, goal_position)
-
-	ret_val = node.Node(current_coords, parent_coords, movement_cost, goal_cost)
-
-	return ret_val
-
-
-def actionMoveRight(data, goal_position):
-	if data.current_coords[1]+1 >= input_map_dummy.shape[1]:
-		return None
-
-	current_coords = (data.current_coords[0], data.current_coords[1]+1)
-	parent_coords = data.current_coords
-	movement_cost = data.movement_cost + 1
-	goal_cost = utils.euclideanDistance(current_coords, goal_position)
-
-	ret_val = node.Node(current_coords, parent_coords, movement_cost, goal_cost)
-
-	return ret_val
-
-
-def actionMoveUp(data, goal_position):
-	if data.current_coords[0]-1 < 0:
-		return None
-
-	current_coords = (data.current_coords[0]-1, data.current_coords[1])
-	parent_coords = data.current_coords
-	movement_cost = data.movement_cost + 1
-	goal_cost = utils.euclideanDistance(current_coords, goal_position)
-
-	ret_val = node.Node(current_coords, parent_coords, movement_cost, goal_cost)
-	
-	return ret_val
-
-
-def actionMoveDown(data, goal_position):
-	if data.current_coords[0]+1 >= input_map_dummy.shape[0]:
-		return None
-
-	current_coords = (data.current_coords[0]+1, data.current_coords[1])
-	parent_coords = data.current_coords
-	movement_cost = data.movement_cost + 1
-	goal_cost = utils.euclideanDistance(current_coords, goal_position)
-
-	ret_val = node.Node(current_coords, parent_coords, movement_cost, goal_cost)
-	
-	return ret_val
-
-
-def actionMoveTopLeft(data, goal_position):
-	if data.current_coords[0]-1 < 0 and data.current_coords[1]-1 < 0:
-		return None
-
-	current_coords = (data.current_coords[0]-1, data.current_coords[1]-1)
-	parent_coords = data.current_coords
-	movement_cost = data.movement_cost + np.sqrt(2)
-	goal_cost = utils.euclideanDistance(current_coords, goal_position)
-
-	ret_val = node.Node(current_coords, parent_coords, movement_cost, goal_cost)
-
-	return ret_val
-
-
-def actionMoveTopRight(data, goal_position):
-	if data.current_coords[0]-1 < 0 and data.current_coords[1]+1 >= input_map_dummy.shape[1]:
-		return None
-
-	current_coords = (data.current_coords[0]-1, data.current_coords[1]+1)
-	parent_coords = data.current_coords
-	movement_cost = data.movement_cost + np.sqrt(2)
-	goal_cost = utils.euclideanDistance(current_coords, goal_position)
-
-	ret_val = node.Node(current_coords, parent_coords, movement_cost, goal_cost)
-
-	return ret_val
-
-
-def actionMoveBottomLeft(data, goal_position):
-	if data.current_coords[0]+1 >= input_map_dummy.shape[0] and data.current_coords[1]-1 < 0:
-		return None
-
-	current_coords = (data.current_coords[0]+1, data.current_coords[1]-1)
-	parent_coords = data.current_coords
-	movement_cost = data.movement_cost + np.sqrt(2)
-	goal_cost = utils.euclideanDistance(current_coords, goal_position)
-
-	ret_val = node.Node(current_coords, parent_coords, movement_cost, goal_cost)
-
-	return ret_val
-
-
-def actionMoveBottomRight(data, goal_position):
-	if data.current_coords[0]+1 >= input_map_dummy.shape[0] and data.current_coords[1]+1 >= input_map_dummy.shape[1]:
-		return None
-
-	current_coords = (data.current_coords[0]+1, data.current_coords[1]+1)
-	parent_coords = data.current_coords
-	movement_cost = data.movement_cost + np.sqrt(2)
-	goal_cost = utils.euclideanDistance(current_coords, goal_position)
-
-	ret_val = node.Node(current_coords, parent_coords, movement_cost, goal_cost)
-
-	return ret_val
-
-
+##
+## Move from the current coordinates Node to the next valid movement.
+## The values of row_step and col_step specify the direction of movement 
+## from one of the 8 directions. Use of the row_step and col_step parameters
+## takes away the need to specify 8 different functions for all the different movements.
+##
+## :param      data:           The current coordinates
+## :type       data:           Node
+## :param      row_step:       The row step
+## :type       row_step:       int
+## :param      col_step:       The col step
+## :type       col_step:       int
+## :param      goal_position:  The goal position. Used only for A_star, not for dijkstra.
+## :type       goal_position:  (row, col)
+##
+## :returns:   Node for the new position in case of valid movement, None otherwise
+## :rtype:     Node
+##
 def actionMove(data, row_step, col_step, goal_position=None):
 	if ((data.current_coords[0] + row_step) < 0) or ((data.current_coords[0] + row_step) >= input_map_dummy.shape[0]) or ((data.current_coords[1] + col_step) < 0) or ((data.current_coords[1] + col_step) >= input_map_dummy.shape[1]):
 		return None
