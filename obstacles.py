@@ -77,7 +77,7 @@ def rectangle(x,y,radius):
 #check if the coordinate is in the polygon obstacle
 def polygon(x,y,radius):
     #points of the polygon
-    p1 = [25.0-(radius/np.sqrt(2)), 15-(radius/np.sqrt(2))]
+    p1 = [25.0, 15-(radius)]
     p2 = [75.0, 15-radius]
     p3 = [100.0+radius, 50]
     p4 = [75.0, 80+radius]
@@ -151,7 +151,7 @@ def getMap(radius=0, visualize=False):
 
     if visualize:
         while(1):
-            
+
             cv2.imshow("HSV",mask)
             #if 'q' is pressed then quit video
             key = cv2.waitKey(1) & 0xFF
@@ -165,7 +165,7 @@ def getMap(radius=0, visualize=False):
 
 
 def main():
-    mask = getMap()
+    mask = getMap(20,True)
     print(mask.shape)
 
 
