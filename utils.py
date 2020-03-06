@@ -27,12 +27,6 @@ def findInHeap(node, node_list):
 
 def backtrack(node, visited_nodes):
 	## printing both the arguments
-	print("Node details:")
-	node.printNode()
-	print("Visited nodes -----")
-	for key in visited_nodes:
-		visited_nodes[key].printNode()
-		print("---")
 	path = []
 	temp = visited_nodes[node.parent_coords]
 	while temp.parent_coords is not None:
