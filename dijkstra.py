@@ -14,8 +14,8 @@ import utils
 
 
 ##
-## Gets the dijkstra path. 
-## In this algorithm, the heuristic cost from 
+## Gets the dijkstra path.
+## In this algorithm, the heuristic cost from
 ## current node to goal node is not considered.
 ##
 ## :param      input_map:  The input map
@@ -25,7 +25,7 @@ def getDijkstraPath(input_map):
 	viz_map = copy.deepcopy(input_map)
 
 	start_r, start_c = 10, 10
-	goal_r, goal_c = 77, 99
+	goal_r, goal_c = 30,10
 	start_node = node.Node((start_r, start_c), None, 0, None)
 	goal_node = node.Node((goal_r, goal_c), None, -1, None)
 
@@ -52,9 +52,11 @@ def getDijkstraPath(input_map):
 		if curr_node.shallowMatch(goal_node):
 			print("Reached Goal!")
 			# backtrack to get the path
-			# utils.backtrack(curr_node, visited_nodes)
+			path = utils.backtrack(curr_node, visited_nodes)
+			for i in path:
+				input_map[i.current_coords] = 255
 			break
-		
+
 		# if hit an obstacle, ignore this movement
 		if input_map[curr_node.current_coords] != 0:
 			continue
@@ -62,11 +64,11 @@ def getDijkstraPath(input_map):
 		for row_step, col_step in movement_steps:
 			# Action Move
 			next_node = actions.actionMove(curr_node, row_step, col_step)
-			
+
 			# ERROR <- GETTING NEGATIVE COORDINATES
 			# if next_node.current_coords[0] < 0 or next_node.current_coords[1] < 0:
 			# 	print next_node.current_coords
-			
+
 			if next_node is not None:
 				# Check if the current node has already been visited.
 				# If it has, then see if the current path is better than the previous one
@@ -78,7 +80,7 @@ def getDijkstraPath(input_map):
 
 						h_idx = utils.findInHeap(next_node, minheap)
 						if h_idx > -1:
-							minheap[h_idx] = (next_node.movement_cost, next_node)							
+							minheap[h_idx] = (next_node.movement_cost, next_node)
 				else:
 					# visited_nodes.append(next_node)
 					visited_nodes[next_node.current_coords] = next_node
@@ -93,7 +95,8 @@ def getDijkstraPath(input_map):
 def main():
 	input_map = obstacles.getMap()
 	getDijkstraPath(input_map)
-
+	cv2.imshow("Map", input_map)
+	cv2.waitKey(0)
 
 if __name__ == '__main__':
 	main()

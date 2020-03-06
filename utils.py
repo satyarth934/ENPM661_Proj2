@@ -33,6 +33,13 @@ def backtrack(node, visited_nodes):
 	for key in visited_nodes:
 		visited_nodes[key].printNode()
 		print("---")
+	path = []
+	temp = visited_nodes[node.parent_coords]
+	while temp.parent_coords is not None:
+		path.insert(0,visited_nodes[temp.parent_coords])
+		temp = visited_nodes[temp.parent_coords]
+
+	return path
 
 
 def drawOnMap(input_map, coords, visualize=False):
