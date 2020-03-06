@@ -151,7 +151,7 @@ def getMap(radius=0, visualize=False):
 
     if visualize:
         while(1):
-            
+
             cv2.imshow("HSV",mask)
             #if 'q' is pressed then quit video
             key = cv2.waitKey(1) & 0xFF
