@@ -44,7 +44,7 @@ def main():
 	print "Time to run Dijkstra:", time.clock() - start_time, "seconds"
 
 	# Visualize the path on the input_map
-	utils.visualizePaths(input_map=input_map, optimal_path=path, exploration_coords=viz_visited_coords)
+	utils.visualizePaths(input_map=orign_map, optimal_path=path, exploration_coords=viz_visited_coords)
 	
 	# if 'q' is pressed then quit video
 	while(1):
