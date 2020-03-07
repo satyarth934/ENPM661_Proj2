@@ -15,6 +15,9 @@ import utils
 import dijkstra
 
 
+##
+## The main function
+##
 def main():
 
 	radius = int(input("Enter the robot radius: "))
@@ -37,13 +40,11 @@ def main():
 		return 
 
 	start_time = time.clock()
-	path = dijkstra.getDijkstraPath(input_map, (start_r, start_c), (goal_r, goal_c), original_map=orign_map)
+	path, viz_visited_coords = dijkstra.getDijkstraPath(input_map, (start_r, start_c), (goal_r, goal_c), original_map=orign_map)
 	print "Time to run Dijkstra:", time.clock() - start_time, "seconds"
 
 	# Visualize the path on the input_map
-	for i in path:
-		orign_map[i.current_coords] = 255
-	cv2.imshow("Map", orign_map)
+	utils.visualizePaths(input_map=input_map, optimal_path=path, exploration_coords=viz_visited_coords)
 	
 	# if 'q' is pressed then quit video
 	while(1):

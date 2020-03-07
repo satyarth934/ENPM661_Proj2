@@ -19,9 +19,8 @@ import dijkstra
 ## The main function
 ##
 def main():
-	start_time = time.clock()
+
 	input_map = obstacles.getMap(radius=0, visualize=False)
-	print "Time to build the map:", time.clock() - start_time, "seconds"
 
 	# User input for the start state
 	start_c, start_r = map(int, raw_input("Enter starting coordinates (x y): ").split())
@@ -39,13 +38,11 @@ def main():
 
 	start_time = time.clock()
 	# Get the path after running the dijkstra algorithm 
-	path = dijkstra.getDijkstraPath(input_map, (start_r, start_c), (goal_r, goal_c), original_map=input_map)
+	path, viz_visited_coords = dijkstra.getDijkstraPath(input_map, (start_r, start_c), (goal_r, goal_c), original_map=input_map)
 	print "Time to run Dijkstra:", time.clock() - start_time, "seconds"
 
 	# Visualize the path on the input_map
-	for i in path:
-		input_map[i.current_coords] = 255
-	cv2.imshow("Map", input_map)
+	utils.visualizePaths(input_map=input_map, optimal_path=path, exploration_coords=viz_visited_coords)
 
 	 #if 'q' is pressed then quit visualization
 	while(1):

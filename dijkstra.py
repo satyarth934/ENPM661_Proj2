@@ -49,6 +49,8 @@ def getDijkstraPath(input_map, start_pos, goal_pos, original_map, visualize=Fals
 					  [+1,  0],
 					  [+1, +1]]
 
+	viz_visited_coords = []
+
 	while len(minheap) > 0:
 		_, curr_node = heapq.heappop(minheap)
 
@@ -57,11 +59,7 @@ def getDijkstraPath(input_map, start_pos, goal_pos, original_map, visualize=Fals
 			# backtrack to get the path
 			path = utils.backtrack(curr_node, visited_nodes)
 
-			# for i in path:
-			# 	original_map[i.current_coords] = 255
-			# break
-			
-			return path
+			return (path, viz_visited_coords)
 
 		for row_step, col_step in movement_steps:
 			# Action Move
@@ -88,8 +86,9 @@ def getDijkstraPath(input_map, start_pos, goal_pos, original_map, visualize=Fals
 					visited_nodes[next_node.current_coords] = next_node
 					heapq.heappush(minheap, ((next_node.movement_cost), next_node))
 
+					viz_visited_coords.append(next_node.current_coords)
 					if visualize:
-						utils.drawOnMap(viz_map, next_node.current_coords, visualize=True)
+						utils.drawOnMap(viz_map, next_node.current_coords, visualize=visualize)
 
 		heapq.heapify(minheap)
 
