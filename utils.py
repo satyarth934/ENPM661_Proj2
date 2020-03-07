@@ -1,5 +1,6 @@
 import os
 import cv2
+import copy
 import numpy as np
 
 
@@ -49,17 +50,23 @@ def findInHeap(node, node_list):
 ## :rtype:     list
 ##
 def backtrack(node, visited_nodes):
-	path = []
+	# put the goal node in the path
+	path = [node]
+
+	# backtrack all the parent nodes from the list of visited nodes
 	temp = visited_nodes[node.parent_coords]
 	while temp.parent_coords is not None:
-		path.insert(0,visited_nodes[temp.parent_coords])
+		path.insert(0,temp)
 		temp = visited_nodes[temp.parent_coords]
+
+	# put the start node in the path
+	path.insert(0, temp)
 
 	return path
 
 
 ##
-## Function to draw on the map for visualization purposes
+## Function to draw an individual point on the map for visualization purposes
 ##
 ## :param      input_map:  The input map
 ## :type       input_map:  numpy matrix
@@ -75,6 +82,24 @@ def drawOnMap(input_map, coords, visualize=False):
 		cv2.imshow("exploration", input_map)
 		cv2.waitKey(10)
 
+
+def visualizePaths(input_map, optimal_path, exploration_coords=None):
+
+	if len(exploration_coords) > 0:
+		exp_map = copy.deepcopy(input_map)
+
+		for coord in exploration_coords:
+			exp_map[coord] = 255
+			cv2.imshow("Exploration Map", exp_map)
+			cv2.waitKey(1)
+
+		print "Done with exploration"
+
+
+	for n in optimal_path:
+		input_map[n.current_coords] = 255
+		cv2.imshow("Exploration Map", input_map)
+		cv2.waitKey(50)
 
 
 # def main():
