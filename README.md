@@ -11,6 +11,7 @@ pip install numpy
 
 ## Instructions to run Dijkstra for a Point Robot
 ```python
+$ git clone https://github.com/satyarth934/ENPM661_Proj2.git
 $ python codes\Dijkstra_point.py
 ```
 The user will then be prompted to enter the start and goal positions in the cartesian coordinates.
