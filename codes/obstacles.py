@@ -101,8 +101,8 @@ def diamond(x,y,radius):
 ##
 def rectangle(x,y,radius):
     #points of the rectangle
-    p1 = [39.0, 127-radius]
-    p2 = [104.0+radius, 165]
+    p1 = [35.0, 123-radius]
+    p2 = [100.0+radius, 161]
     p3 = [95.0, 170+radius]
     p4 = [30.0-radius, 132]
 
