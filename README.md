@@ -21,3 +21,8 @@ Two screens will appear. The first will show all the nodes that the program chec
 python dijkstra_ridig.py
 ```
 The user will be prompted to enter the start and end node cartesian coordinates, radius of the rigid robot, and clearance. The same two screens will appear here. The clearance and radius are adjusted for by increasing the size of the obstacles, so the visual map may not show the true shape of the obstacle.
+
+## Execution time for the Algorithm (Point Robot)
+Start position: 5, 5
+Goal position: 295 195
+Total time to run dijkstra: 4.436329 seconds
