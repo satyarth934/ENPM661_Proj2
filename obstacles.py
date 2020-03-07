@@ -187,6 +187,9 @@ def polygon(x,y,radius):
         return False
 
 
+def insideObstacle(row, col, radius):
+    return (circle(col, row, radius) or ellipse(col, row, radius) or rectangle(col, row, radius) or diamond(col, row, radius) or polygon(col, row, radius))
+
 ##
 ## Gets the map with the defined obstacles in it.
 ##
@@ -221,7 +224,7 @@ def getMap(radius=0, visualize=False):
     #make obstacles visible
     for i in range(200):
         for j in range(300):
-            if circle(j,i,radius) or ellipse(j,i,radius) or rectangle(j,i,radius) or diamond(j,i,radius) or polygon(j,i,radius):
+            if insideObstacle(i, j, radius):
                 #if the coordinates are within an obstacle make that pixel lighter
                 mask[i][j] = 100
 
@@ -240,10 +243,10 @@ def getMap(radius=0, visualize=False):
     return mask
 
 
-# def main():
-#     mask = getMap(20,True)
-#     print(mask.shape)
+def main():
+    mask = getMap(0,True)
+    print(mask.shape)
 
 
-# if __name__ == '__main__':
-#     main()
+if __name__ == '__main__':
+    main()
