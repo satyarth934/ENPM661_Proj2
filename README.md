@@ -41,7 +41,7 @@ Time to run Dijkstra: 3.221574 seconds
 ## Execution time for the Algorithm (Point Robot)
 Start position: 5, 5  
 Goal position: 295 195  
-Total time to run dijkstra: 3 minutes 
+Total time to run dijkstra: 4.436329 seconds
 
 
 The file `dijkstra_point_exploration.mp4` shows the animation for the exploration of the search space.
