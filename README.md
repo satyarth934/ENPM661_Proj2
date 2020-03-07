@@ -11,7 +11,7 @@ pip install numpy
 
 ## Instructions to run Dijkstra for a Point Robot
 ```python
-$ python dijkstra_point.py
+$ python codes\Dijkstra_point.py
 ```
 The user will then be prompted to enter the start and goal positions in the cartesian coordinates.
 Once the program finishes, the optimal path to the goal is displayed. Consider the example below.
@@ -20,12 +20,12 @@ Once the program finishes, the optimal path to the goal is displayed. Consider t
 Enter starting coordinates (x y): 5 5 
 Enter goal coordinates (x y): 295 195
 Reached Goal!
-Time to run Dijkstra: 3 minutes and 3 seconds
+Time to run Dijkstra: 3 minutes
 ```
 
 ## Instructions to run Dijkstra for a Rigid Robot
 ```python
-$ python dijkstra_rigid.py
+$ python codes\Dijkstra_rigid.py
 ```
 The user will then be prompted to enter the radius of the rigid robot, clearance, the start position, and the goal position in the cartesian coordinates. The clearance and radius are adjusted for by increasing the size of the obstacles. Once the program finishes, the optimal path to the goal is displayed. Consider the example below.
 ```
@@ -34,13 +34,13 @@ Enter the clearance: 2
 Enter starting coordinates (x y): 5 5
 Enter goal coordinates (x y): 295 195
 Reached Goal!
-Time to run Dijkstra: 3.221574 seconds
+Time to run Dijkstra: 2.75 minutes
 ```
 
 ## Execution time for the Algorithm (Point Robot)
 Start position: 5, 5  
 Goal position: 295 195  
-Total time to run dijkstra: 4.436329 seconds  
+Total time to run dijkstra: 3 minutes 
 
 
 The file `dijkstra_point_exploration.mp4` shows the animation for the exploration of the search space.
