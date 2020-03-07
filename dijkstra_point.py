@@ -3,6 +3,7 @@ import cv2
 import copy
 import numpy as np
 import heapq
+import time
 
 import sys
 sys.dont_write_bytecode = True
@@ -11,101 +12,39 @@ import actions
 import obstacles
 import node
 import utils
-
-
-##
-## Gets the path from the start node to the goal node using the 
-## Dijkstra path finding algorithm.
-##
-## :param      input_map:  The input map
-## :type       input_map:  numpy array
-## :param      start_pos:  The start position
-## :type       start_pos:  (row, col)
-## :param      goal_pos:   The goal position
-## :type       goal_pos:   (row, col)
-##
-def getDijkstraPath(input_map, start_pos, goal_pos):
-	viz_map = copy.deepcopy(input_map)
-
-	start_r, start_c = start_pos
-	goal_r, goal_c = goal_pos
-
-	start_node = node.Node((start_r, start_c), None, 0, None)
-	goal_node = node.Node((goal_r, goal_c), None, -1, None)
-
-	# Saving a tuple with total cost and the state node
-	minheap = [((start_node.movement_cost), start_node)]
-	heapq.heapify(minheap)
-
-	# dictionary of all the visited nodes
-	visited_nodes = {}
-	visited_nodes[start_node.current_coords] = start_node
-
-	movement_steps = [[-1, -1],
-					  [-1,  0],
-					  [-1, +1],
-					  [ 0, -1],
-					  [ 0, +1],
-					  [+1, -1],
-					  [+1,  0],
-					  [+1, +1]]
-
-	while len(minheap) > 0:
-		_, curr_node = heapq.heappop(minheap)
-
-		if curr_node.shallowMatch(goal_node):
-			print("Reached Goal!")
-			# backtrack to get the path
-			path = utils.backtrack(curr_node, visited_nodes)
-
-			for i in path:
-				input_map[i.current_coords] = 255
-			break
-
-		for row_step, col_step in movement_steps:
-			# Action Move
-			next_node = actions.actionMove(curr_node, row_step, col_step)
-			
-			if next_node is not None:
-				# if hit an obstacle, ignore this movement
-				if input_map[next_node.current_coords] != 0:
-					continue
-
-				# Check if the current node has already been visited.
-				# If it has, then see if the current path is better than the previous one
-				# based on the total cost = movement cost + goal cost
-				if next_node.current_coords in visited_nodes:
-					if (next_node.movement_cost) < (visited_nodes[next_node.current_coords].movement_cost):
-						visited_nodes[next_node.current_coords].movement_cost = next_node.movement_cost
-						visited_nodes[next_node.current_coords].parent_coords = next_node.parent_coords
-
-						h_idx = utils.findInHeap(next_node, minheap)
-						if h_idx > -1:
-							minheap[h_idx] = (next_node.movement_cost, next_node)
-				else:
-					# visited_nodes.append(next_node)
-					visited_nodes[next_node.current_coords] = next_node
-					heapq.heappush(minheap, ((next_node.movement_cost), next_node))
-
-					utils.drawOnMap(viz_map, next_node.current_coords, visualize=True)
-
-		heapq.heapify(minheap)
+import dijkstra
 
 
 ##
 ## The main function
 ##
 def main():
-	input_map = obstacles.getMap()
+	start_time = time.clock()
+	input_map = obstacles.getMap(radius=0, visualize=False)
+	print "Time to build the map:", time.clock() - start_time, "seconds"
 
-	# User input for the start state and the goal state
+	# User input for the start state
 	start_r = input_map.shape[0] - int(input("Enter the start row: "))
 	start_c = int(input("Enter the start col: "))
+	if (start_r < 0 or start_c < 0 or start_r >= input_map.shape[0] or start_c >= input_map.shape[1] or obstacles.insideObstacle(start_r, start_c, radius=0)):
+		print("ERROR: This start state is invalid. Possible issues can be that the start position lies outside the map region or within the obstacle. Please try a different starting position.")
+		return 
+
+	# User input for the goal state
 	goal_r = input_map.shape[0] - int(input("Enter the goal row: "))
 	goal_c = int(input("Enter the goal col: "))
+	if (goal_r < 0 or goal_c < 0 or goal_r >= input_map.shape[0] or goal_c >= input_map.shape[1] or obstacles.insideObstacle(goal_r, goal_c, radius=0)):
+		print("ERROR: This goal state is invalid. Possible issues can be that the goal position lies outside the map region or within the obstacle. Please try a different goal position.")
+		return 
 
-	# 
-	getDijkstraPath(input_map, (start_r, start_c), (goal_r, goal_c))
+	start_time = time.clock()
+	# Get the path after running the dijkstra algorithm 
+	path = dijkstra.getDijkstraPath(input_map, (start_r, start_c), (goal_r, goal_c), original_map=input_map)
+	print "Time to run Dijkstra:", time.clock() - start_time, "seconds"
+
+	# Visualize the path on the input_map
+	for i in path:
+		input_map[i.current_coords] = 255
 	cv2.imshow("Map", input_map)
 
 	 #if 'q' is pressed then quit visualization
