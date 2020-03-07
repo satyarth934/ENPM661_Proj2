@@ -20,7 +20,7 @@ Once the program finishes, the optimal path to the goal is displayed. Consider t
 Enter starting coordinates (x y): 5 5 
 Enter goal coordinates (x y): 295 195
 Reached Goal!
-Time to run Dijkstra: 4.436329 seconds
+Time to run Dijkstra: 3 minutes and 3 seconds
 ```
 
 ## Instructions to run Dijkstra for a Rigid Robot
