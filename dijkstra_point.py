@@ -24,15 +24,15 @@ def main():
 	print "Time to build the map:", time.clock() - start_time, "seconds"
 
 	# User input for the start state
-	start_r = input_map.shape[0] - int(input("Enter the start row: "))
-	start_c = int(input("Enter the start col: "))
+	start_c, start_r = map(int, raw_input("Enter starting coordinates (x y): ").split())
+	start_r = input_map.shape[0] - start_r
 	if (start_r < 0 or start_c < 0 or start_r >= input_map.shape[0] or start_c >= input_map.shape[1] or obstacles.insideObstacle(start_r, start_c, radius=0)):
 		print("ERROR: This start state is invalid. Possible issues can be that the start position lies outside the map region or within the obstacle. Please try a different starting position.")
 		return 
 
 	# User input for the goal state
-	goal_r = input_map.shape[0] - int(input("Enter the goal row: "))
-	goal_c = int(input("Enter the goal col: "))
+	goal_c, goal_r = map(int, raw_input("Enter goal coordinates (x y): ").split())
+	goal_r = input_map.shape[0] - goal_r
 	if (goal_r < 0 or goal_c < 0 or goal_r >= input_map.shape[0] or goal_c >= input_map.shape[1] or obstacles.insideObstacle(goal_r, goal_c, radius=0)):
 		print("ERROR: This goal state is invalid. Possible issues can be that the goal position lies outside the map region or within the obstacle. Please try a different goal position.")
 		return 
