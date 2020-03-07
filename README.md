@@ -1,7 +1,7 @@
 # ENPM661_Proj2
 Dijkstra implementation for Point and Rigid Robot
 
-The two main files are dijkstra_point.py and dijkstra_rigid.py
+The two main files are Dijkstra_point.py and Dijkstra_rigid.py
 
 ## Installation
 ```bash
